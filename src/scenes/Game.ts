@@ -1,9 +1,12 @@
 import { Scene } from 'phaser';
+import { Player } from '../GameObjects/Player';
 
 export class Game extends Scene
 {
     camera: Phaser.Cameras.Scene2D.Camera;
     background: Phaser.GameObjects.Image;
+    player1: Player;
+    player2: Player;
 
     constructor ()
     {
@@ -20,6 +23,8 @@ export class Game extends Scene
           'game-background'
         );
 
+        this.player1 = new Player(this, 'canard1', 'left')
+        this.player2 = new Player(this, 'canard2', 'right');
 
         this.input.once('pointerdown', () => {
             this.scene.start('GameOver');
