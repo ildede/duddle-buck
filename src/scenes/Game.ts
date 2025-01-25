@@ -33,8 +33,8 @@ export class Game extends Scene
         this.player1 = new Player(this, 'dude1', 'left');
         this.player2 = new Player(this, 'dude2', 'right');
 
-        this.physics.add.collider(this.player1, this.pump);
-        this.physics.add.collider(this.player2, this.pump);
+        this.physics.add.collider(this.player1, this.pump, () => this.pump.toggleFlipX());
+        this.physics.add.collider(this.player2, this.pump, () => this.pump.toggleFlipX());
 
         this.input.once('pointerdown', () => {
             this.scene.start('GameOver');
