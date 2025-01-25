@@ -38,11 +38,11 @@ export class Preloader extends Scene
         // this.load.image('canard2', 'canard2.png');
         this.load.spritesheet('dude1',
           'dude1.png',
-          { frameWidth: 32, frameHeight: 48 }
+          { frameWidth: 300, frameHeight: 240 }
         );
         this.load.spritesheet('dude2',
           'dude2.png',
-          { frameWidth: 32, frameHeight: 48 }
+          { frameWidth: 300, frameHeight: 240 }
         );
     }
 

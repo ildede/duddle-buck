@@ -10,20 +10,20 @@ export class Player {
 
     scene.anims.create({
       key: `${texture}left`,
-      frames: scene.anims.generateFrameNumbers(texture, { start: 0, end: 3 }),
+      frames: scene.anims.generateFrameNumbers(texture, { start: 3, end: 6 }),
       frameRate: 10,
       repeat: -1
     });
-
+/*
     scene.anims.create({
       key: `${texture}stop`,
       frames: [ { key: texture, frame: 4 } ],
       frameRate: 20
     });
-
+*/
     scene.anims.create({
       key: `${texture}right`,
-      frames: scene.anims.generateFrameNumbers(texture, { start: 5, end: 8 }),
+      frames: scene.anims.generateFrameNumbers(texture, { start: 0, end: 2 }),
       frameRate: 10,
       repeat: -1
     });
