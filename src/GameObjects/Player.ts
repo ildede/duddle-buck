@@ -6,7 +6,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
   constructor(scene: Phaser.Scene, texture: string, side: string) {
     super(
       scene,
-      Number(scene.game.config.width)/2 + (side === 'left' ? -200 : +200),
+      Number(scene.game.config.width)/2 + (side === 'left' ? -300 : +300),
       Number(scene.game.config.height)/2,
       texture
     );
