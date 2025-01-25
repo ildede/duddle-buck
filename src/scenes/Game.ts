@@ -48,4 +48,9 @@ export class Game extends Scene {
       this.scene.start('GameOver');
     });
   }
+
+  update() {
+    this.player1.update();
+    this.player2.update();
+  }
 }

@@ -27,6 +27,7 @@ export class Preloader extends Scene {
 
     this.load.image('game-background', 'game-bg.png');
     this.load.image('pump', 'pump.png');
+    this.load.image('dart', 'dart.png');
 
     this.load.spritesheet(
       'dude1',
