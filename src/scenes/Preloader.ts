@@ -27,6 +27,7 @@ export class Preloader extends Scene {
 
     this.load.image('game-background', 'game-bg.png');
     this.load.image('pump', 'pump.png');
+
     this.load.spritesheet(
       'dude1',
       'dude1.png',
@@ -37,6 +38,8 @@ export class Preloader extends Scene {
       'dude2.png',
       { frameWidth: 300, frameHeight: 240 }
     );
+
+    this.load.audio('playing-music', 'game-music.ogg');
   }
 
   create() {

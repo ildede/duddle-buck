@@ -7,6 +7,7 @@ export class Game extends Scene {
   player1: Player;
   player2: Player;
   pump: Phaser.GameObjects.Image;
+  music: Phaser.Sound.NoAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.WebAudioSound;
 
   constructor() {
     super('Game');
@@ -38,7 +39,12 @@ export class Game extends Scene {
       this.pump.setFlipX(false);
     });
 
+    this.music = this.sound.add('playing-music');
+    this.music.play({loop: true});
+
     this.input.once('pointerdown', () => {
+      this.music.stop();
+      this.music.destroy();
       this.scene.start('GameOver');
     });
   }

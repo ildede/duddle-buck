@@ -11,29 +11,27 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
       texture
     );
     this.textureName = texture;
-    this.scene = scene
-    this.scene.add.existing(this)
-    this.scene.physics.add.existing(this)
+    this.scene = scene;
+    this.scene.add.existing(this);
+    this.scene.physics.add.existing(this);
 
-    scene.anims.create({
-      key: `${texture}left`,
-      frames: scene.anims.generateFrameNumbers(texture, {start: 3, end: 6}),
-      frameRate: 10,
-      repeat: -1
-    });
-    /*
-        scene.anims.create({
-          key: `${texture}stop`,
-          frames: [ { key: texture, frame: 4 } ],
-          frameRate: 20
-        });
-    */
-    scene.anims.create({
-      key: `${texture}right`,
-      frames: scene.anims.generateFrameNumbers(texture, {start: 0, end: 2}),
-      frameRate: 10,
-      repeat: -1
-    });
+    if (!scene.anims.exists(`${texture}left`)) {
+      scene.anims.create({
+        key: `${texture}left`,
+        frames: scene.anims.generateFrameNumbers(texture, {start: 3, end: 5}),
+        frameRate: 10,
+        repeat: -1
+      });
+    }
+
+    if (!scene.anims.exists(`${texture}right`)) {
+      scene.anims.create({
+        key: `${texture}right`,
+        frames: scene.anims.generateFrameNumbers(texture, {start: 0, end: 2}),
+        frameRate: 10,
+        repeat: -1
+      });
+    }
 
     this.setBounce(0.1);
     this.setCollideWorldBounds(true);
