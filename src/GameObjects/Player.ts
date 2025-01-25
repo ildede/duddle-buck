@@ -6,8 +6,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
   constructor(scene: Phaser.Scene, texture: string, side: string) {
     super(
       scene,
-      Number(scene.game.config.width)/2 + (side === 'left' ? -300 : +300),
-      Number(scene.game.config.height)/2,
+      Number(scene.game.config.width) / 2 + (side === 'left' ? -300 : +300),
+      Number(scene.game.config.height) / 2,
       texture
     );
     this.textureName = texture;
@@ -17,20 +17,20 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
     scene.anims.create({
       key: `${texture}left`,
-      frames: scene.anims.generateFrameNumbers(texture, { start: 3, end: 6 }),
+      frames: scene.anims.generateFrameNumbers(texture, {start: 3, end: 6}),
       frameRate: 10,
       repeat: -1
     });
-/*
-    scene.anims.create({
-      key: `${texture}stop`,
-      frames: [ { key: texture, frame: 4 } ],
-      frameRate: 20
-    });
-*/
+    /*
+        scene.anims.create({
+          key: `${texture}stop`,
+          frames: [ { key: texture, frame: 4 } ],
+          frameRate: 20
+        });
+    */
     scene.anims.create({
       key: `${texture}right`,
-      frames: scene.anims.generateFrameNumbers(texture, { start: 0, end: 2 }),
+      frames: scene.anims.generateFrameNumbers(texture, {start: 0, end: 2}),
       frameRate: 10,
       repeat: -1
     });
@@ -39,8 +39,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     this.setCollideWorldBounds(true);
 
     const playerKeys = side === 'left'
-      ? { left: KEY_CODES.A, right: KEY_CODES.S }
-      : { left: KEY_CODES.LEFT, right: KEY_CODES.RIGHT }
+      ? {left: KEY_CODES.A, right: KEY_CODES.S}
+      : {left: KEY_CODES.LEFT, right: KEY_CODES.RIGHT}
 
     const leftKey = scene.input.keyboard?.addKey(playerKeys.left);
     const rightKey = scene.input.keyboard?.addKey(playerKeys.right);
@@ -56,10 +56,12 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     this.setVelocityX(-160);
     this.anims.play(`${this.textureName}left`, true);
   }
+
   walkRight() {
     this.setVelocityX(+160);
     this.anims.play(`${this.textureName}right`, true);
   }
+
   walkStop() {
     this.setVelocityX(0);
     this.anims.stop();
