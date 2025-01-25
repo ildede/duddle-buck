@@ -3,6 +3,7 @@ const KEY_CODES = Phaser.Input.Keyboard.KeyCodes;
 export class Player extends Phaser.Physics.Arcade.Sprite {
   private textureName: string;
   private dart: Phaser.GameObjects.Image;
+  private dartEffect: Phaser.Sound.NoAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.WebAudioSound;
 
   constructor(scene: Phaser.Scene, texture: string, side: string) {
     super(
@@ -17,6 +18,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     this.scene.physics.add.existing(this);
 
     this.dart = this.scene.add.image(this.x, this.y, 'dart');
+    this.dartEffect = scene.sound.add('sarbacane');
 
     if (!scene.anims.exists(`${texture}left`)) {
       scene.anims.create({
@@ -89,5 +91,6 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     shootingDart.setAngle(this.dart.angle);
     let vector2 = this.scene.physics.velocityFromAngle(this.dart.angle, 1000);
     shootingDart.setVelocity(-vector2.x, -vector2.y);
+    this.dartEffect.play();
   }
 }

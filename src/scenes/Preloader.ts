@@ -41,6 +41,7 @@ export class Preloader extends Scene {
     );
 
     this.load.audio('playing-music', 'game-music.ogg');
+    this.load.audio('sarbacane', 'sarbacane.mp3');
   }
 
   create() {
