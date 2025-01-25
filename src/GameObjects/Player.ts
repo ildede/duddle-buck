@@ -62,6 +62,6 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
   }
   walkStop() {
     this.setVelocityX(0);
-    this.anims.play(`${this.textureName}stop`);
+    this.anims.stop();
   }
 }
