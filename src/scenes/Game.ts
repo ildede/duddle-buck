@@ -23,8 +23,8 @@ export class Game extends Scene
           'game-background'
         );
 
-        this.player1 = new Player(this, 'canard1', 'left')
-        this.player2 = new Player(this, 'canard2', 'right');
+        this.player1 = new Player(this, 'dude1', 'left');
+        this.player2 = new Player(this, 'dude2', 'right');
 
         this.input.once('pointerdown', () => {
             this.scene.start('GameOver');
