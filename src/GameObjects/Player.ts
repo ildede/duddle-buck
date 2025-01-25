@@ -1,12 +1,19 @@
 const KEY_CODES = Phaser.Input.Keyboard.KeyCodes;
 
-export class Player {
-
-  private texture: string;
-  private sprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
+export class Player extends Phaser.Physics.Arcade.Sprite {
+  private textureName: string;
 
   constructor(scene: Phaser.Scene, texture: string, side: string) {
-    this.texture = texture;
+    super(
+      scene,
+      Number(scene.game.config.width)/2 + (side === 'left' ? -200 : +200),
+      Number(scene.game.config.height)/2,
+      texture
+    );
+    this.textureName = texture;
+    this.scene = scene
+    this.scene.add.existing(this)
+    this.scene.physics.add.existing(this)
 
     scene.anims.create({
       key: `${texture}left`,
@@ -28,13 +35,8 @@ export class Player {
       repeat: -1
     });
 
-    this.sprite = scene.physics.add.sprite(
-      Number(scene.game.config.width)/2 + (side === 'left' ? -200 : +200),
-      Number(scene.game.config.height)/2,
-      texture
-    );
-    this.sprite.setBounce(0.1);
-    this.sprite.setCollideWorldBounds(true);
+    this.setBounce(0.1);
+    this.setCollideWorldBounds(true);
 
     const playerKeys = side === 'left'
       ? { left: KEY_CODES.A, right: KEY_CODES.S }
@@ -46,20 +48,20 @@ export class Player {
     leftKey?.on('down', () => this.walkLeft());
     rightKey?.on('down', () => this.walkRight());
 
-    leftKey?.on('up', () => this.stop());
-    rightKey?.on('up', () => this.stop());
+    leftKey?.on('up', () => this.walkStop());
+    rightKey?.on('up', () => this.walkStop());
   }
 
   walkLeft() {
-    this.sprite.setVelocityX(-160);
-    this.sprite.anims.play(`${this.texture}left`, true);
+    this.setVelocityX(-160);
+    this.anims.play(`${this.textureName}left`, true);
   }
   walkRight() {
-    this.sprite.setVelocityX(+160);
-    this.sprite.anims.play(`${this.texture}right`, true);
+    this.setVelocityX(+160);
+    this.anims.play(`${this.textureName}right`, true);
   }
-  stop() {
-    this.sprite.setVelocityX(0);
-    this.sprite.anims.play(`${this.texture}stop`);
+  walkStop() {
+    this.setVelocityX(0);
+    this.anims.play(`${this.textureName}stop`);
   }
 }
