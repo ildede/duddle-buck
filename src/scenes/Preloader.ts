@@ -31,6 +31,7 @@ export class Preloader extends Scene {
     this.load.image('right-bath', 'baignoire_droite.png');
     this.load.image('dart1', 'dart1.png');
     this.load.image('dart2', 'dart2.png');
+    this.load.image('invisible', 'invisible.png');
 
     this.load.spritesheet(
       'canard1',

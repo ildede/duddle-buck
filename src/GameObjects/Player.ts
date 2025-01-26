@@ -10,7 +10,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     super(
       scene,
       Number(scene.game.config.width) / 2 + (type === 1 ? -400 : +400),
-      Number(scene.game.config.height) - 200,
+      Number(scene.game.config.height) - 700,
       `canard${type}`
     );
     this.textureName = `canard${type}`;
