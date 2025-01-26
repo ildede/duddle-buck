@@ -32,17 +32,20 @@ export class Game extends Scene {
       Number(this.game.config.height) - 300,
       'pump'
     );
+    this.pump.body?.setSize(350,500);
 
     this.leftBath = this.physics.add.staticImage(
       245,
       Number(this.game.config.height) - 243,
       'left-bath'
     );
+    this.leftBath.body?.setSize(350, 150, false).setOffset(50, 200);
     this.rightBath = this.physics.add.staticImage(
       Number(this.game.config.width) - 260,
       Number(this.game.config.height) - 270,
       'right-bath'
     );
+    this.rightBath.body?.setSize(350, 150, false).setOffset(100,210);
 
     this.bubbles = this.add.group();
     this.darts = this.add.group();

@@ -9,7 +9,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
   constructor(scene: Phaser.Scene, type: number, darts: Phaser.GameObjects.Group) {
     super(
       scene,
-      Number(scene.game.config.width) / 2 + (type === 1 ? -300 : +300),
+      Number(scene.game.config.width) / 2 + (type === 1 ? -400 : +400),
       Number(scene.game.config.height) - 200,
       `canard${type}`
     );
@@ -17,6 +17,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     this.scene = scene;
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
+
+    this.body?.setSize(this.width-60, this.height-60);
 
     this.dart = this.scene.add.image(this.x, this.y, `dart${type}`);
     this.dartEffect = scene.sound.add('sarbacane');
