@@ -39,7 +39,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     let playerKeys = {left: KEY_CODES.LEFT, right: KEY_CODES.RIGHT, shot: KEY_CODES.DOWN, jump: KEY_CODES.UP};
     switch (type) {
       case 1:
-        playerKeys = {left: KEY_CODES.A, right: KEY_CODES.D, shot: KEY_CODES.S, jump: KEY_CODES.W};
+        playerKeys = {left: KEY_CODES.Q, right: KEY_CODES.D, shot: KEY_CODES.S, jump: KEY_CODES.Z};
         break;
       case 2:
         playerKeys = {left: KEY_CODES.LEFT, right: KEY_CODES.RIGHT, shot: KEY_CODES.DOWN, jump: KEY_CODES.UP};
