@@ -85,6 +85,7 @@ export class Preloader extends Scene {
     this.load.audio('sarbacane', 'sarbacane.mp3');
     this.load.audio('walking-duck', 'marche_canards.mp3');
     this.load.audio('victory', 'victory.mp3');
+    this.load.audio('start-music', 'start-music.wav');
   }
 
   create() {

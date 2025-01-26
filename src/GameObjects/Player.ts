@@ -21,8 +21,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     this.body?.setSize(this.width-60, this.height-60);
 
     this.dart = this.scene.add.image(this.x, this.y, `dart${type}`);
-    this.dartEffect = scene.sound.add('sarbacane');
-    this.walkEffect = scene.sound.add('walking-duck', { volume: 1.2 });
+    this.dartEffect = scene.sound.add('sarbacane', { volume: 0.9 });
+    this.walkEffect = scene.sound.add('walking-duck', { volume: 1.7 });
 
     if (!scene.anims.exists(`canard${type}walk`)) {
       scene.anims.create({

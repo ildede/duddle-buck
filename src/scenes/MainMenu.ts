@@ -11,12 +11,16 @@ export class MainMenu extends Scene {
   plasticduck: GameObjects.Image;
 
   title: GameObjects.Text;
+  private music: Phaser.Sound.NoAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.WebAudioSound;
 
   constructor() {
     super('MainMenu');
   }
 
   create() {
+    this.music = this.sound.add('start-music');
+    this.music.play({loop: true});
+
     this.background = this.add.image(
       Number(this.game.config.width) / 2,
       Number(this.game.config.height) / 2,
@@ -28,7 +32,11 @@ export class MainMenu extends Scene {
       Number(this.game.config.height) - 220,
       'credits',
       0
-    ).on('pointerdown', () => this.scene.start('Game'));
+    ).on('pointerdown', () => {
+      this.music.stop();
+      this.music.destroy();
+      this.scene.start('Game')
+    });
 
     this.gamestart.on('pointerover', () => {
       this.gamestart.setFrame(1);
@@ -44,7 +52,11 @@ export class MainMenu extends Scene {
       Number(this.game.config.height) - 220,
       'credits',
       2
-    ).on('pointerdown', () => this.scene.start('Credits'));
+    ).on('pointerdown', () => {
+      this.music.stop();
+      this.music.destroy();
+      this.scene.start('Credits')
+    });
     this.credits.setInteractive();
 
     this.credits.on('pointerover', () => {
