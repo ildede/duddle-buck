@@ -64,11 +64,21 @@ export class Game extends Scene {
       this.pump.setFlipX(true);
     });
 
+    let player1timer = performance.now();
+    let player2timer = performance.now();
     this.physics.add.collider(this.player1, this.leftBath, () => {
-      this.bubbles.add(new Bubble(this, 200 + Math.random() * 250, Number(this.game.config.height) - 320));
+      let now = performance.now();
+      if (now - player1timer > 1000) {
+        this.bubbles.add(new Bubble(this, 200 + Math.random() * 250, Number(this.game.config.height) - 320));
+        player1timer = now;
+      }
     });
     this.physics.add.collider(this.player2, this.rightBath, () => {
-      this.bubbles.add(new Bubble(this, Number(this.game.config.width) - 200 - Math.random() * 250, Number(this.game.config.height) - 330));
+      let now = performance.now();
+      if (now - player2timer > 1000) {
+        this.bubbles.add(new Bubble(this, Number(this.game.config.width) - 200 - Math.random() * 250, Number(this.game.config.height) - 330));
+        player2timer = now;
+      }
     });
 
     this.physics.add.collider(this.bubbles, this.darts, (bubble, _dart) => {
