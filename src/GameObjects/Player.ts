@@ -22,7 +22,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
     this.dart = this.scene.add.image(this.x, this.y, `dart${type}`);
     this.dartEffect = scene.sound.add('sarbacane');
-    this.walkEffect = scene.sound.add('walking-duck');
+    this.walkEffect = scene.sound.add('walking-duck', { volume: 1.2 });
 
     if (!scene.anims.exists(`canard${type}walk`)) {
       scene.anims.create({
@@ -59,7 +59,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     });
 
     shotKey?.on('down', () => {
-      darts.add(this.shotDart());
+      if (darts.children.size < 3) {
+        let child = this.shotDart();
+        darts.add(child);
+      }
     });
 
     leftKey?.on('up', () => {
@@ -118,6 +121,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     let vector2 = this.scene.physics.velocityFromAngle(this.dart.angle, 1300);
     shootingDart.setVelocity(-vector2.x, -vector2.y);
     this.dartEffect.play();
+    setTimeout(() => shootingDart.destroy(), 1700);
     return shootingDart;
   }
 }

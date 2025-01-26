@@ -32,6 +32,7 @@ export class Preloader extends Scene {
     this.load.image('dart1', 'dart1.png');
     this.load.image('dart2', 'dart2.png');
     this.load.image('invisible', 'invisible.png');
+    [0,1,2,3,4,5,6,7,8,9,10].forEach((n) => this.load.image(`bolla${n}`, `bolla${n}.png`))
 
     this.load.spritesheet(
       'canard1',

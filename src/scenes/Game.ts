@@ -11,8 +11,10 @@ export class Game extends Scene {
   music: Phaser.Sound.NoAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.WebAudioSound;
   leftBath: Phaser.Types.Physics.Arcade.ImageWithStaticBody;
   rightBath: Phaser.Types.Physics.Arcade.ImageWithStaticBody;
-  bubbles: Phaser.GameObjects.Group;
-  darts: Phaser.GameObjects.Group;
+  bubbles1: Phaser.GameObjects.Group;
+  bubbles2: Phaser.GameObjects.Group;
+  darts1: Phaser.GameObjects.Group;
+  darts2: Phaser.GameObjects.Group;
 
   constructor() {
     super('Game');
@@ -50,11 +52,14 @@ export class Game extends Scene {
     );
     this.rightBath.body?.setSize(350, 150, false).setOffset(100, 230);
 
-    this.bubbles = this.add.group();
-    this.darts = this.add.group();
+    this.bubbles1 = this.add.group();
+    this.bubbles2 = this.add.group();
 
-    this.player1 = new Player(this, 1, this.darts);
-    this.player2 = new Player(this, 2, this.darts);
+    this.darts1 = this.add.group();
+    this.darts2 = this.add.group();
+
+    this.player1 = new Player(this, 1, this.darts1);
+    this.player2 = new Player(this, 2, this.darts2);
     this.physics.add.collider(floor, [this.player1, this.player2]);
 
     let pumpFacingRight = false;
@@ -73,7 +78,7 @@ export class Game extends Scene {
       if (!pumpFacingRight) {
         let now = performance.now();
         if (now - player1timer > 1000) {
-          this.bubbles.add(new Bubble(this, 200 + Math.random() * 250, Number(this.game.config.height) - 320));
+          this.bubbles1.add(new Bubble(this, 200 + Math.random() * 250, Number(this.game.config.height) - 320));
           player1timer = now;
         }
       }
@@ -82,16 +87,29 @@ export class Game extends Scene {
       if (pumpFacingRight) {
         let now = performance.now();
         if (now - player2timer > 1000) {
-          this.bubbles.add(new Bubble(this, Number(this.game.config.width) - 200 - Math.random() * 250, Number(this.game.config.height) - 330));
+          this.bubbles2.add(new Bubble(this, Number(this.game.config.width) - 200 - Math.random() * 250, Number(this.game.config.height) - 330));
           player2timer = now;
         }
       }
     });
 
-    this.physics.add.collider(this.bubbles, this.darts, (bubble, _dart) => {
-      (bubble as Bubble).anims.play('pop');
-      (bubble as Bubble).on('animationcomplete', () => bubble.destroy());
-    });
+    const popBubble = (bubble: Bubble) => {
+      bubble.anims.play('pop');
+      bubble.on('animationcomplete', () => bubble.destroy());
+    };
+
+    this.physics.add.collider(this.bubbles1, this.darts1, (bubble, _dart) => popBubble(bubble as Bubble));
+    this.physics.add.collider(this.bubbles2, this.darts2, (bubble, _dart) => popBubble(bubble as Bubble));
+    this.physics.add.collider(this.bubbles1, this.darts2, (bubble, _dart) => popBubble(bubble as Bubble));
+    this.physics.add.collider(this.bubbles2, this.darts1, (bubble, _dart) => popBubble(bubble as Bubble));
+
+    // shootingDart.setCollideWorldBounds(undefined, undefined, undefined, true);
+    // shootingDart.body.world.on('worldbounds', () => {
+    //   console.log('dart on world bounds');
+    //   shootingDart.setActive(false);
+    //   shootingDart.setVisible(false);
+    //   shootingDart.destroy();
+    // });
 
     this.music = this.sound.add('playing-music');
     this.music.play({loop: true, volume: 0.3});
@@ -107,5 +125,8 @@ export class Game extends Scene {
   update() {
     this.player1.update();
     this.player2.update();
+    // this.darts1.getChildren().forEach((d) => {
+    //   console.log(d?.body);
+    // })
   }
 }
