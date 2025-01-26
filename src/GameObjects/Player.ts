@@ -36,13 +36,13 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     this.setBounce(0.1);
     this.setCollideWorldBounds(true);
 
-    let playerKeys = {left: KEY_CODES.LEFT, right: KEY_CODES.RIGHT, shot: KEY_CODES.UP};
+    let playerKeys = {left: KEY_CODES.LEFT, right: KEY_CODES.RIGHT, shot: KEY_CODES.DOWN, jump: KEY_CODES.UP};
     switch (type) {
       case 1:
-        playerKeys = {left: KEY_CODES.A, right: KEY_CODES.D, shot: KEY_CODES.W};
+        playerKeys = {left: KEY_CODES.A, right: KEY_CODES.D, shot: KEY_CODES.S, jump: KEY_CODES.W};
         break;
       case 2:
-        playerKeys = {left: KEY_CODES.LEFT, right: KEY_CODES.RIGHT, shot: KEY_CODES.UP};
+        playerKeys = {left: KEY_CODES.LEFT, right: KEY_CODES.RIGHT, shot: KEY_CODES.DOWN, jump: KEY_CODES.UP};
         break;
       default:
     }
@@ -50,9 +50,14 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     const leftKey = scene.input.keyboard?.addKey(playerKeys.left);
     const rightKey = scene.input.keyboard?.addKey(playerKeys.right);
     const shotKey = scene.input.keyboard?.addKey(playerKeys.shot);
+    const jumpKey = scene.input.keyboard?.addKey(playerKeys.jump);
 
     leftKey?.on('down', () => this.walkLeft());
     rightKey?.on('down', () => this.walkRight());
+    jumpKey?.on('down', () => {
+      if (this.body?.touching.down) this.jump();
+    });
+
     shotKey?.on('down', () => {
       darts.add(this.shotDart());
     });
@@ -96,6 +101,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     this.setVelocityX(0);
     this.anims.stop();
     this.walkEffect.stop();
+  }
+
+  jump() {
+    this.setVelocityY(+4000);
   }
 
   update() {

@@ -34,6 +34,7 @@ export class Game extends Scene {
       Number(this.game.config.height) - 300,
       'pump'
     );
+    // @ts-ignore
     this.pump.body?.setSize(350, 500);
 
     this.leftBath = this.physics.add.staticImage(
@@ -47,7 +48,7 @@ export class Game extends Scene {
       Number(this.game.config.height) - 270,
       'right-bath'
     );
-    this.rightBath.body?.setSize(350, 150, false).setOffset(100, 210);
+    this.rightBath.body?.setSize(350, 150, false).setOffset(100, 230);
 
     this.bubbles = this.add.group();
     this.darts = this.add.group();
