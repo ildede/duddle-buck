@@ -15,7 +15,7 @@ export class Boot extends Scene {
     this.load.spritesheet(
       'credits',
       'assets/start-credits.png',
-      {frameWidth: 150, frameHeight: 92}
+      {frameWidth: 325, frameHeight: 199}
     );
     this.load.spritesheet(
       'baignoires',
