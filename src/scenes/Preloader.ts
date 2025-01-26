@@ -47,12 +47,17 @@ export class Preloader extends Scene {
       'filet_eau_gauche.png',
       {frameWidth: 64, frameHeight: 92}
     );
+    this.load.image('right-bath', 'baignoire_droite.png');
+    this.load.spritesheet(
+      'right-bath-water',
+      'baignoire_droite_sheet.png',
+      {frameWidth: 524, frameHeight: 420}
+    );
     this.load.spritesheet(
       'right-water',
       'filet_eau_droite.png',
       {frameWidth: 64, frameHeight: 92}
     );
-    this.load.image('right-bath', 'baignoire_droite.png');
     this.load.image('dart1', 'dart1.png');
     this.load.image('dart2', 'dart2.png');
     this.load.image('invisible', 'invisible.png');

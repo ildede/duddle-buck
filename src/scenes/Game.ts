@@ -16,8 +16,8 @@ export class Game extends Scene {
   leftWater: Phaser.GameObjects.Sprite;
 
   rightBath: Phaser.Types.Physics.Arcade.ImageWithStaticBody;
-  // rightBathWater: Phaser.GameObjects.Sprite;
-  // rightBathWaterLevel: number = 0;
+  rightBathWater: Phaser.GameObjects.Sprite;
+  rightBathWaterLevel: number = 0;
   rightWater: Phaser.GameObjects.Sprite;
 
   bubbles1: Phaser.GameObjects.Group;
@@ -70,7 +70,7 @@ export class Game extends Scene {
     this.leftBathWater = this.add.sprite(
       245,
       Number(this.game.config.height) - 243,
-      'left-bath-water'
+      'left-bath-water',
     ).setVisible(false);
     this.leftWater = this.add.sprite(
       130,
@@ -93,11 +93,11 @@ export class Game extends Scene {
       'right-bath'
     );
     this.rightBath.body?.setSize(350, 150, false).setOffset(100, 230);
-    // this.rightBathWater = this.add.sprite(
-    //   Number(this.game.config.width) - 260,
-    //   Number(this.game.config.height) - 270,
-    //   'left-bath-water'
-    // ).setVisible(false);
+    this.rightBathWater = this.add.sprite(
+      Number(this.game.config.width) - 260,
+      Number(this.game.config.height) - 270,
+      'right-bath-water'
+    ).setVisible(false);
     this.rightWater = this.add.sprite(
       Number(this.game.config.width) - 124,
       Number(this.game.config.height) - 270,
@@ -152,11 +152,12 @@ export class Game extends Scene {
       }
     });
     this.physics.add.collider(this.player2, this.rightBath, () => {
-      if (this.isPumping && this.pumpFacingRight) {
+      if (this.rightBathWaterLevel > 0) {
         let now = performance.now();
         if (now - player2timer > 1000) {
           this.bubbles2.add(new Bubble(this, Number(this.game.config.width) - 200 - Math.random() * 250, Number(this.game.config.height) - 330));
           player2timer = now;
+          this.rightBathWaterLevel = Math.max(this.rightBathWaterLevel - 0.3, 0);
         }
       }
     });
@@ -197,6 +198,9 @@ export class Game extends Scene {
       if (this.pumpFacingRight) {
         this.leftWater.setVisible(false);
         this.rightWater.setVisible(true);
+        if (this.rightBathWaterLevel < 7.9) {
+          this.rightBathWaterLevel += 0.005;
+        }
 
       } else {
         this.leftWater.setVisible(true);
@@ -208,6 +212,8 @@ export class Game extends Scene {
     }
 
     this.leftBathWater.setVisible(this.leftBathWaterLevel > 0);
+    this.rightBathWater.setVisible(this.rightBathWaterLevel > 0);
     this.leftBathWater.setFrame(Math.floor(this.leftBathWaterLevel));
+    this.rightBathWater.setFrame(Math.floor(this.rightBathWaterLevel));
   }
 }
