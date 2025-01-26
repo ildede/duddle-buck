@@ -16,6 +16,10 @@ export class Game extends Scene {
   leftWater: Phaser.GameObjects.Sprite;
 
   rightBath: Phaser.Types.Physics.Arcade.ImageWithStaticBody;
+  // rightBathWater: Phaser.GameObjects.Sprite;
+  // rightBathWaterLevel: number = 0;
+  rightWater: Phaser.GameObjects.Sprite;
+
   bubbles1: Phaser.GameObjects.Group;
   bubbles2: Phaser.GameObjects.Group;
   darts1: Phaser.GameObjects.Group;
@@ -89,6 +93,26 @@ export class Game extends Scene {
       'right-bath'
     );
     this.rightBath.body?.setSize(350, 150, false).setOffset(100, 230);
+    // this.rightBathWater = this.add.sprite(
+    //   Number(this.game.config.width) - 260,
+    //   Number(this.game.config.height) - 270,
+    //   'left-bath-water'
+    // ).setVisible(false);
+    this.rightWater = this.add.sprite(
+      Number(this.game.config.width) - 124,
+      Number(this.game.config.height) - 270,
+      'right-water'
+    ).setVisible(false);
+    if (!this.anims.exists(`right-pumping`)) {
+      this.anims.create({
+        key: `right-pumping`,
+        frames: this.anims.generateFrameNumbers(`right-water`, {start: 0, end: 1}),
+        frameRate: 10,
+        repeat: -1
+      });
+    }
+    this.anims.play('right-pumping', this.rightWater);
+
 
     this.bubbles1 = this.add.group();
     this.bubbles2 = this.add.group();
@@ -172,9 +196,11 @@ export class Game extends Scene {
     if (this.isPumping) {
       if (this.pumpFacingRight) {
         this.leftWater.setVisible(false);
+        this.rightWater.setVisible(true);
 
       } else {
         this.leftWater.setVisible(true);
+        this.rightWater.setVisible(false);
         if (this.leftBathWaterLevel < 7.9) {
           this.leftBathWaterLevel += 0.005;
         }

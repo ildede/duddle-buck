@@ -47,6 +47,11 @@ export class Preloader extends Scene {
       'filet_eau_gauche.png',
       {frameWidth: 64, frameHeight: 92}
     );
+    this.load.spritesheet(
+      'right-water',
+      'filet_eau_droite.png',
+      {frameWidth: 64, frameHeight: 92}
+    );
     this.load.image('right-bath', 'baignoire_droite.png');
     this.load.image('dart1', 'dart1.png');
     this.load.image('dart2', 'dart2.png');
