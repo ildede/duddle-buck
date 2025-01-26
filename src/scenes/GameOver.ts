@@ -9,7 +9,7 @@ export class GameOver extends Scene {
     super('GameOver');
   }
 
-  create() {
+  create(input: { winnerIsLeft: boolean }) {
     this.camera = this.cameras.main;
     this.camera.setBackgroundColor(0xff0000);
 
@@ -23,7 +23,7 @@ export class GameOver extends Scene {
     this.gameover_text = this.add.text(
       Number(this.game.config.width) / 2,
       Number(this.game.config.height) / 2,
-      'Game Over',
+      input.winnerIsLeft ? 'Canard left wins' : 'Canard right wins',
       {
         fontFamily: 'Arial Black', fontSize: 64, color: '#ffffff',
         stroke: '#000000', strokeThickness: 8,

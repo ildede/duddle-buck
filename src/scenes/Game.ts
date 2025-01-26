@@ -111,12 +111,6 @@ export class Game extends Scene {
     this.score1 = this.add.image(Number(this.game.config.width)/2 - 200, 150, 'bolla0')
     this.score2 = this.add.image(Number(this.game.config.width)/2 + 200, 150, 'bolla0')
 
-    this.input.once('pointerdown', () => {
-      this.music.stop();
-      this.music.destroy();
-      this.scene.start('GameOver');
-    });
-
   }
 
   update() {
@@ -126,5 +120,11 @@ export class Game extends Scene {
     this.score1.setTexture(`bolla${score1 <= 10 ? score1 : 10}`)
     let score2 = Math.floor(this.bubbles2.children.size / 4);
     this.score2.setTexture(`bolla${score2 <= 10 ? score2 : 10}`)
+
+    if (score1 > 10 || score2 > 10) {
+      this.music.stop();
+      this.music.destroy();
+      this.scene.start('GameOver', { winnerIsLeft: score1 > score2 });
+    }
   }
 }
