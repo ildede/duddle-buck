@@ -11,6 +11,7 @@ export class GameOver extends Scene {
   }
 
   create({winner}: { winner: string }) {
+    console.log(winner);
 
     this.background = this.add.image(
       Number(this.game.config.width) / 2,
@@ -26,8 +27,7 @@ export class GameOver extends Scene {
     let winnerSprite = this.add.sprite(
       Number(this.game.config.width) / 2,
       Number(this.game.config.height) / 2 - 200,
-      winner,
-      4
+      winner
     ).setScale(2, 2);
     if (!this.anims.exists(`${winner}happy`)) {
       this.anims.create({

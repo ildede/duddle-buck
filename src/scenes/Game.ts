@@ -133,10 +133,12 @@ export class Game extends Scene {
     this.darts1 = this.add.group();
     this.darts2 = this.add.group();
 
-    this.player1Texture = plastiqueSelected ? '1bis' : '1';
-    this.player2Texture = plastiqueSelected ? '2bis' : '2';
-    this.player1 = new Player(this, this.player1Texture, this.darts1, couacs);
-    this.player2 = new Player(this, this.player2Texture, this.darts2, couacs);
+    let post1 = plastiqueSelected ? '1bis' : '1';
+    this.player1Texture = `canard${post1}`;
+    let post2 = plastiqueSelected ? '2bis' : '2';
+    this.player2Texture = `canard${post2}`;
+    this.player1 = new Player(this, post1, this.darts1, couacs);
+    this.player2 = new Player(this, post2, this.darts2, couacs);
     this.physics.add.collider(floor, [this.player1, this.player2]);
 
     this.pumpFacingRight = false;
