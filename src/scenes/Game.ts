@@ -13,6 +13,7 @@ export class Game extends Scene {
   leftBath: Phaser.Types.Physics.Arcade.ImageWithStaticBody;
   leftBathWater: Phaser.GameObjects.Sprite;
   leftBathWaterLevel: number = 0;
+  leftWater: Phaser.GameObjects.Sprite;
 
   rightBath: Phaser.Types.Physics.Arcade.ImageWithStaticBody;
   bubbles1: Phaser.GameObjects.Group;
@@ -61,13 +62,27 @@ export class Game extends Scene {
       Number(this.game.config.height) - 243,
       'left-bath'
     );
+    this.leftBath.body?.setSize(350, 150, false).setOffset(50, 200);
     this.leftBathWater = this.add.sprite(
       245,
       Number(this.game.config.height) - 243,
       'left-bath-water'
-      ).setVisible(false);
+    ).setVisible(false);
+    this.leftWater = this.add.sprite(
+      130,
+      Number(this.game.config.height) - 265,
+      'left-water'
+    ).setVisible(false);
+    if (!this.anims.exists(`left-pumping`)) {
+      this.anims.create({
+        key: `left-pumping`,
+        frames: this.anims.generateFrameNumbers(`left-water`, {start: 0, end: 1}),
+        frameRate: 10,
+        repeat: -1
+      });
+    }
+    this.anims.play('left-pumping', this.leftWater);
 
-    this.leftBath.body?.setSize(350, 150, false).setOffset(50, 200);
     this.rightBath = this.physics.add.staticImage(
       Number(this.game.config.width) - 260,
       Number(this.game.config.height) - 270,
@@ -156,8 +171,10 @@ export class Game extends Scene {
 
     if (this.isPumping) {
       if (this.pumpFacingRight) {
+        this.leftWater.setVisible(false);
 
       } else {
+        this.leftWater.setVisible(true);
         if (this.leftBathWaterLevel < 7.9) {
           this.leftBathWaterLevel += 0.005;
         }
