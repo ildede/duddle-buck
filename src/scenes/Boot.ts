@@ -8,6 +8,11 @@ export class Boot extends Scene {
 
   preload() {
     this.load.image('background', 'assets/splash-screen.jpg');
+    this.load.image('credits', 'assets/credits.png');
+    this.load.image('realduck', 'assets/real-duck.png');
+    this.load.image('plasticduck', 'assets/plastic-duck.png');
+    this.load.image('sdb', 'assets/sdb.png');
+    this.load.image('cabane', 'assets/cabane-menu.png');
   }
 
   create() {
