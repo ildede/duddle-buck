@@ -77,7 +77,7 @@ export class Game extends Scene {
     });
 
     this.music = this.sound.add('playing-music');
-    // this.music.play({loop: true});
+    this.music.play({loop: true, volume: 0.3});
 
     this.input.once('pointerdown', () => {
       this.music.stop();

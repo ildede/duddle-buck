@@ -115,7 +115,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
   shotDart() {
     const shootingDart = this.scene.physics.add.image(this.dart.x, this.dart.y, this.dart.texture);
     shootingDart.setAngle(this.dart.angle);
-    let vector2 = this.scene.physics.velocityFromAngle(this.dart.angle, 1000);
+    let vector2 = this.scene.physics.velocityFromAngle(this.dart.angle, 1300);
     shootingDart.setVelocity(-vector2.x, -vector2.y);
     this.dartEffect.play();
     return shootingDart;

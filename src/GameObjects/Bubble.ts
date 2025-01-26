@@ -5,7 +5,7 @@ export class Bubble extends Phaser.Physics.Arcade.Sprite {
 
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
-    this.setGravityY(-400);
+    this.setGravityY(-370);
     let scale: number = 0.1 + Math.random() * 0.5;
     this.setScale(scale, scale);
 
