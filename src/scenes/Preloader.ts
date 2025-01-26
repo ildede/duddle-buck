@@ -30,13 +30,13 @@ export class Preloader extends Scene {
     this.load.image('dart', 'dart.png');
 
     this.load.spritesheet(
-      'dude1',
-      'dude1.png',
+      'canard1',
+      'canard1.png',
       { frameWidth: 300, frameHeight: 240 }
     );
     this.load.spritesheet(
-      'dude2',
-      'dude2.png',
+      'canard2',
+      'canard2.png',
       { frameWidth: 300, frameHeight: 240 }
     );
 

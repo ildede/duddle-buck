@@ -20,18 +20,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     this.dart = this.scene.add.image(this.x, this.y, 'dart');
     this.dartEffect = scene.sound.add('sarbacane');
 
-    if (!scene.anims.exists(`${texture}left`)) {
+    if (!scene.anims.exists(`${texture}walk`)) {
       scene.anims.create({
-        key: `${texture}left`,
-        frames: scene.anims.generateFrameNumbers(texture, {start: 3, end: 5}),
-        frameRate: 10,
-        repeat: -1
-      });
-    }
-
-    if (!scene.anims.exists(`${texture}right`)) {
-      scene.anims.create({
-        key: `${texture}right`,
+        key: `${texture}walk`,
         frames: scene.anims.generateFrameNumbers(texture, {start: 0, end: 2}),
         frameRate: 10,
         repeat: -1
@@ -53,8 +44,12 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     rightKey?.on('down', () => this.walkRight());
     shotKey?.on('down', () => this.shotDart());
 
-    leftKey?.on('up', () => this.walkStop());
-    rightKey?.on('up', () => this.walkStop());
+    leftKey?.on('up', () => {
+      if (!rightKey?.isDown) this.walkStop();
+    });
+    rightKey?.on('up', () => {
+      if (!leftKey?.isDown) this.walkStop();
+    });
 
     scene.tweens.add({
       targets: this.dart,
@@ -68,12 +63,14 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
   walkLeft() {
     this.setVelocityX(-160);
-    this.anims.play(`${this.textureName}left`, true);
+    this.setFlipX(true);
+    this.anims.play(`${this.textureName}walk`, true);
   }
 
   walkRight() {
     this.setVelocityX(+160);
-    this.anims.play(`${this.textureName}right`, true);
+    this.setFlipX(false);
+    this.anims.play(`${this.textureName}walk`, true);
   }
 
   walkStop() {
