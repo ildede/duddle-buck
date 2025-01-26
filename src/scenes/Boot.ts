@@ -20,7 +20,7 @@ export class Boot extends Scene {
     this.load.spritesheet(
       'baignoires',
       'assets/baignoires.png',
-      {frameWidth: 300, frameHeight: 205}
+      {frameWidth: 360, frameHeight: 250}
     );
 
   }

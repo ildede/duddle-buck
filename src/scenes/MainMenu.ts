@@ -55,32 +55,28 @@ export class MainMenu extends Scene {
     })
 
     this.sdb = this.add.sprite(
-      Number(this.game.config.width) / 2 - 284,
+      Number(this.game.config.width) / 2 - 250,
       Number(this.game.config.height) - 470,
-      'baignoires', 0
+      'baignoires',
+      0
     );
     this.cabane = this.add.sprite(
-      Number(this.game.config.width) / 2 + 284,
+      Number(this.game.config.width) / 2 + 250,
       Number(this.game.config.height) - 470,
-      'baignoires', 1
+      'baignoires',
+      1
     );
 
     this.realduck = this.add.image(
-      Number(this.game.config.width) / 8 + 700,
-      Number(this.game.config.height) - 750,
+      Number(this.game.config.width) / 2 - 200,
+      Number(this.game.config.height) - 700,
       'realduck'
     );
 
     this.plasticduck = this.add.image(
-      Number(this.game.config.width) / 8 + 1100,
-      Number(this.game.config.height) - 750,
+      Number(this.game.config.width) / 2 + 200,
+      Number(this.game.config.height) - 700,
       'plasticduck'
     );
-
-    /*
-        this.input.once('pointerdown', () => {
-          this.scene.start('Game');
-        });
-    */
   }
 }
