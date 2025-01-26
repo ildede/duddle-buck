@@ -6,10 +6,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
   private dartEffect: Phaser.Sound.NoAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.WebAudioSound;
   private walkEffect: Phaser.Sound.NoAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.WebAudioSound;
 
-  constructor(scene: Phaser.Scene, type: number, darts: Phaser.GameObjects.Group, couacs: (Phaser.Sound.NoAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.WebAudioSound)[]) {
+  constructor(scene: Phaser.Scene, type: string, darts: Phaser.GameObjects.Group, couacs: (Phaser.Sound.NoAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.WebAudioSound)[]) {
     super(
       scene,
-      Number(scene.game.config.width) / 2 + (type === 1 ? -400 : +400),
+      Number(scene.game.config.width) / 2 + (type.startsWith('1') ? -400 : +400),
       Number(scene.game.config.height) - 700,
       `canard${type}`
     );
@@ -38,10 +38,12 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
     let playerKeys = {left: KEY_CODES.LEFT, right: KEY_CODES.RIGHT, shot: KEY_CODES.DOWN, jump: KEY_CODES.UP};
     switch (type) {
-      case 1:
+      case '1':
+      case '1bis':
         playerKeys = {left: KEY_CODES.Q, right: KEY_CODES.D, shot: KEY_CODES.S, jump: KEY_CODES.Z};
         break;
-      case 2:
+      case '2':
+      case '2bis':
         playerKeys = {left: KEY_CODES.LEFT, right: KEY_CODES.RIGHT, shot: KEY_CODES.DOWN, jump: KEY_CODES.UP};
         break;
       default:

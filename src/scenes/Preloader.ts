@@ -63,6 +63,8 @@ export class Preloader extends Scene {
     );
     this.load.image('dart1', 'dart1.png');
     this.load.image('dart2', 'dart2.png');
+    this.load.image('dart1bis', 'dart1.png');
+    this.load.image('dart2bis', 'dart2.png');
     this.load.image('invisible', 'invisible.png');
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].forEach((n) => this.load.image(`bolla${n}`, `bolla${n}.png`))
 
@@ -77,7 +79,12 @@ export class Preloader extends Scene {
       {frameWidth: 300, frameHeight: 240}
     );
     this.load.spritesheet(
-      'canard3',
+      'canard1bis',
+      'canard3.png',
+      {frameWidth: 300, frameHeight: 240}
+    );
+    this.load.spritesheet(
+      'canard2bis',
       'canard3.png',
       {frameWidth: 300, frameHeight: 240}
     );

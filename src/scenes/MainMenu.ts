@@ -13,6 +13,7 @@ export class MainMenu extends Scene {
   title: GameObjects.Text;
   private music: Phaser.Sound.NoAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.WebAudioSound;
   private cabaneSelected: boolean = true;
+  private plastiqueSelected: boolean = false;
 
   constructor() {
     super('MainMenu');
@@ -36,7 +37,7 @@ export class MainMenu extends Scene {
     ).on('pointerdown', () => {
       this.music.stop();
       this.music.destroy();
-      this.scene.start('Game', { cabaneSelected: this.cabaneSelected })
+      this.scene.start('Game', { cabaneSelected: this.cabaneSelected, plastiqueSelected: this.plastiqueSelected })
     });
 
     this.gamestart.on('pointerover', () => {
@@ -93,16 +94,30 @@ export class MainMenu extends Scene {
       this.cabane.setAlpha(1);
     });
 
+    this.plastiqueSelected = false;
     this.realduck = this.add.image(
       Number(this.game.config.width) / 2 - 200,
       Number(this.game.config.height) - 700,
       'realduck'
     );
+    this.realduck.setInteractive();
+    this.realduck.on('pointerdown', () => {
+      this.plastiqueSelected = false;
+      this.plasticduck.setAlpha(0.5);
+      this.realduck.setAlpha(1);
+    });
 
     this.plasticduck = this.add.image(
       Number(this.game.config.width) / 2 + 200,
       Number(this.game.config.height) - 700,
       'plasticduck'
-    );
+    ).setAlpha(0.5);
+    this.plasticduck.setInteractive();
+    this.plasticduck.on('pointerdown', () => {
+      this.plastiqueSelected = true;
+      this.plasticduck.setAlpha(1);
+      this.realduck.setAlpha(0.5);
+    });
+
   }
 }

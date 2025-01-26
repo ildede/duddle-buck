@@ -35,7 +35,7 @@ export class Game extends Scene {
     super('Game');
   }
 
-  create({cabaneSelected}: { cabaneSelected: boolean }) {
+  create({cabaneSelected, plastiqueSelected}: { cabaneSelected: boolean, plastiqueSelected: boolean }) {
     this.camera = this.cameras.main;
 
     this.background = this.add.image(
@@ -131,8 +131,8 @@ export class Game extends Scene {
     this.darts1 = this.add.group();
     this.darts2 = this.add.group();
 
-    this.player1 = new Player(this, 1, this.darts1, couacs);
-    this.player2 = new Player(this, 2, this.darts2, couacs);
+    this.player1 = new Player(this, plastiqueSelected ? '1bis' : '1', this.darts1, couacs);
+    this.player2 = new Player(this, plastiqueSelected ? '2bis' : '2', this.darts2, couacs);
     this.physics.add.collider(floor, [this.player1, this.player2]);
 
     this.pumpFacingRight = false;
