@@ -6,7 +6,9 @@ export class Game extends Scene {
   camera: Phaser.Cameras.Scene2D.Camera;
   background: Phaser.GameObjects.Image;
   player1: Player;
+  player1Texture: string;
   player2: Player;
+  player2Texture: string;
   pump: Phaser.GameObjects.Image;
   music: Phaser.Sound.NoAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.WebAudioSound;
 
@@ -131,8 +133,10 @@ export class Game extends Scene {
     this.darts1 = this.add.group();
     this.darts2 = this.add.group();
 
-    this.player1 = new Player(this, plastiqueSelected ? '1bis' : '1', this.darts1, couacs);
-    this.player2 = new Player(this, plastiqueSelected ? '2bis' : '2', this.darts2, couacs);
+    this.player1Texture = plastiqueSelected ? '1bis' : '1';
+    this.player2Texture = plastiqueSelected ? '2bis' : '2';
+    this.player1 = new Player(this, this.player1Texture, this.darts1, couacs);
+    this.player2 = new Player(this, this.player2Texture, this.darts2, couacs);
     this.physics.add.collider(floor, [this.player1, this.player2]);
 
     this.pumpFacingRight = false;
@@ -206,7 +210,7 @@ export class Game extends Scene {
     if (score1 > 10 || score2 > 10) {
       this.music.stop();
       this.music.destroy();
-      this.scene.start('GameOver', {winner: score1 > score2 ? 'canard1' : 'canard2'});
+      this.scene.start('GameOver', {winner: score1 > score2 ? this.player1Texture : this.player2Texture});
     }
 
     if (this.isPumping) {
