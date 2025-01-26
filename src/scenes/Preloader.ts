@@ -27,6 +27,8 @@ export class Preloader extends Scene {
 
     this.load.image('game-background', 'game-bg.png');
     this.load.image('pump', 'pump.png');
+    this.load.image('left-bath', 'baignoire_gauche.png');
+    this.load.image('right-bath', 'baignoire_droite.png');
     this.load.image('dart1', 'dart1.png');
     this.load.image('dart2', 'dart2.png');
 

@@ -8,6 +8,8 @@ export class Game extends Scene {
   player2: Player;
   pump: Phaser.GameObjects.Image;
   music: Phaser.Sound.NoAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.WebAudioSound;
+  leftBath: Phaser.Types.Physics.Arcade.ImageWithStaticBody;
+  rightBath: Phaser.Types.Physics.Arcade.ImageWithStaticBody;
 
   constructor() {
     super('Game');
@@ -23,9 +25,20 @@ export class Game extends Scene {
     );
 
     this.pump = this.physics.add.staticImage(
-      Number(this.game.config.width) / 2,
-      Number(this.game.config.height) - 232 / 2,
+      Number(this.game.config.width) / 2 - 50,
+      Number(this.game.config.height) - 232,
       'pump'
+    );
+
+    this.leftBath = this.physics.add.staticImage(
+      235,
+      Number(this.game.config.height) - 260,
+      'left-bath'
+    );
+    this.rightBath = this.physics.add.staticImage(
+      Number(this.game.config.width) - 260,
+      Number(this.game.config.height) - 270,
+      'right-bath'
     );
 
     this.player1 = new Player(this, 1);
