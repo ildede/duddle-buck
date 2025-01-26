@@ -33,11 +33,19 @@ export class Game extends Scene {
 
     let floor = this.physics.add.staticImage(Number(this.game.config.width) / 2, Number(this.game.config.height) - 50, 'invisible');
 
-    this.pump = this.physics.add.staticImage(
+    this.pump = this.physics.add.staticSprite(
       Number(this.game.config.width) / 2,
       Number(this.game.config.height) - 300,
-      'pump'
+      'pump',
     );
+    if (!this.anims.exists(`pumping`)) {
+      this.anims.create({
+        key: `pumping`,
+        frames: this.anims.generateFrameNumbers(`pump`, {start: 1, end: 1}),
+        repeat: 0
+      });
+    }
+
     // @ts-ignore
     this.pump.body?.setSize(350, 500);
 
@@ -65,19 +73,24 @@ export class Game extends Scene {
     this.physics.add.collider(floor, [this.player1, this.player2]);
 
     let pumpFacingRight = false;
+    let isPumping = false;
     this.physics.add.collider(this.player1, this.pump, () => {
       pumpFacingRight = false;
+      isPumping = true;
+      this.anims.play('pumping', this.pump);
       this.pump.setFlipX(false);
     });
     this.physics.add.collider(this.player2, this.pump, () => {
       pumpFacingRight = true;
+      isPumping = true;
+      this.anims.play('pumping', this.pump);
       this.pump.setFlipX(true);
     });
 
     let player1timer = performance.now();
     let player2timer = performance.now();
     this.physics.add.collider(this.player1, this.leftBath, () => {
-      if (!pumpFacingRight) {
+      if (isPumping && !pumpFacingRight) {
         let now = performance.now();
         if (now - player1timer > 1000) {
           this.bubbles1.add(new Bubble(this, 200 + Math.random() * 250, Number(this.game.config.height) - 320));
@@ -86,7 +99,7 @@ export class Game extends Scene {
       }
     });
     this.physics.add.collider(this.player2, this.rightBath, () => {
-      if (pumpFacingRight) {
+      if (isPumping && pumpFacingRight) {
         let now = performance.now();
         if (now - player2timer > 1000) {
           this.bubbles2.add(new Bubble(this, Number(this.game.config.width) - 200 - Math.random() * 250, Number(this.game.config.height) - 330));
