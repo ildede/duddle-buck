@@ -76,6 +76,11 @@ export class Preloader extends Scene {
       {frameWidth: 300, frameHeight: 240}
     );
     this.load.spritesheet(
+      'canard3',
+      'canard3.png',
+      {frameWidth: 300, frameHeight: 240}
+    );
+    this.load.spritesheet(
       'bubble',
       'bubble_pop.png',
       {frameWidth: 356, frameHeight: 358}
