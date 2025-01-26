@@ -22,27 +22,20 @@ export class MainMenu extends Scene {
       Number(this.game.config.height) / 2,
       'background'
     );
-/*
-	  this.gamestart = this.add.image(
-      Number(this.game.config.width) / 8 + 600  , 
-      Number(this.game.config.height) -350 , 
-      'gamestart'
-    ).on('pointerdown', () => this.scene.start('Game'));
-    this.gamestart.setInteractive();
- */
-/*
-	  this.credits = this.add.image(
-      Number(this.game.config.width) / 8 + 900, 
-      Number(this.game.config.height) -350 , 
-      'credits'
-    ).on('pointerdown', () => this.scene.start('Credits'));
-    this.credits.setInteractive();
-*/
+
       this.gamestart = this.add.sprite(
       Number(this.game.config.width) /2 - 124,
       Number(this.game.config.height) - 270,
       'credits', 0
     ).on('pointerdown', () => this.scene.start('Game'));
+
+    this.gamestart.on('pointerover', () => {
+      this.gamestart.setFrame(1);
+    })
+    this.gamestart.on('pointerout', () => {
+      this.gamestart.setFrame(0)
+    })
+
     this.gamestart.setInteractive();
 
       this.credits = this.add.sprite(
@@ -52,6 +45,13 @@ export class MainMenu extends Scene {
     ).on('pointerdown', () => this.scene.start('Credits'));
     this.credits.setInteractive();
       
+    this.credits.on('pointerover', () => {
+      this.credits.setFrame(3);
+    })
+    this.credits.on('pointerout', () => {
+      this.credits.setFrame(2)
+    })
+
       this.sdb = this.add.sprite(
       Number(this.game.config.width)/2 - 284,
       Number(this.game.config.height) - 470,
@@ -62,20 +62,6 @@ export class MainMenu extends Scene {
       Number(this.game.config.height) - 470,
       'baignoires', 1
     );
-    /*
-
-	  this.sdb = this.add.image(
-      Number(this.game.config.width) / 8 + 600, 
-      Number(this.game.config.height) -550 , 
-      'sdb'
-    );
-
-	  this.cabane = this.add.image(
-      Number(this.game.config.width) / 8 + 900, 
-      Number(this.game.config.height) -550 , 
-      'cabane'
-    );
-   */
 
 	  this.realduck = this.add.image(
       Number(this.game.config.width) / 8 + 700, 
