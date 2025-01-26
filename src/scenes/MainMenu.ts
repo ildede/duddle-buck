@@ -12,6 +12,7 @@ export class MainMenu extends Scene {
 
   title: GameObjects.Text;
   private music: Phaser.Sound.NoAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.WebAudioSound;
+  private cabaneSelected: boolean = true;
 
   constructor() {
     super('MainMenu');
@@ -35,7 +36,7 @@ export class MainMenu extends Scene {
     ).on('pointerdown', () => {
       this.music.stop();
       this.music.destroy();
-      this.scene.start('Game')
+      this.scene.start('Game', { cabaneSelected: this.cabaneSelected })
     });
 
     this.gamestart.on('pointerover', () => {
@@ -66,18 +67,31 @@ export class MainMenu extends Scene {
       this.credits.setFrame(2)
     })
 
+    this.cabaneSelected = true;
     this.sdb = this.add.sprite(
       Number(this.game.config.width) / 2 - 250,
       Number(this.game.config.height) - 470,
       'baignoires',
       0
-    );
+    ).setAlpha(0.5);
+    this.sdb.setInteractive();
+    this.sdb.on('pointerdown', () => {
+      this.cabaneSelected = false;
+      this.sdb.setAlpha(1);
+      this.cabane.setAlpha(0.5);
+    });
     this.cabane = this.add.sprite(
       Number(this.game.config.width) / 2 + 250,
       Number(this.game.config.height) - 470,
       'baignoires',
       1
     );
+    this.cabane.setInteractive();
+    this.cabane.on('pointerdown', () => {
+      this.cabaneSelected = true;
+      this.sdb.setAlpha(0.5);
+      this.cabane.setAlpha(1);
+    });
 
     this.realduck = this.add.image(
       Number(this.game.config.width) / 2 - 200,

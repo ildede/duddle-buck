@@ -30,6 +30,7 @@ export class Preloader extends Scene {
     this.load.setPath('assets');
 
     this.load.image('game-background', 'game-bg.png');
+    this.load.image('game-background-bain', 'game-bg2.jpg');
     this.load.image('final-credits', 'final_credits.jpg');
     this.load.image('sky-clouds', 'sky_clouds.png');
     this.load.image('bubbles-cloud', 'bubbles_sky.png');

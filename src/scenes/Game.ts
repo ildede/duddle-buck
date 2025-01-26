@@ -35,13 +35,13 @@ export class Game extends Scene {
     super('Game');
   }
 
-  create() {
+  create({cabaneSelected}: { cabaneSelected: boolean }) {
     this.camera = this.cameras.main;
 
     this.background = this.add.image(
       Number(this.game.config.width) / 2,
       Number(this.game.config.height) / 2,
-      'game-background'
+      `game-background${cabaneSelected ? '' : '-bain'}`
     );
 
     let couacs = [
@@ -52,7 +52,7 @@ export class Game extends Scene {
       this.sound.add('couac5'),
       this.sound.add('couac6'),
     ];
-    this.patauge = this.sound.add('patauge', { volume: 0.8 });
+    this.patauge = this.sound.add('patauge', {volume: 0.8});
 
     let floor = this.physics.add.staticImage(Number(this.game.config.width) / 2, Number(this.game.config.height) - 50, 'invisible');
 
@@ -190,8 +190,8 @@ export class Game extends Scene {
     this.music = this.sound.add('playing-music');
     this.music.play({loop: true, volume: 0.3});
 
-    this.score1 = this.add.image(Number(this.game.config.width)/2 - 200, 150, 'bolla0')
-    this.score2 = this.add.image(Number(this.game.config.width)/2 + 200, 150, 'bolla0')
+    this.score1 = this.add.image(Number(this.game.config.width) / 2 - 200, 150, 'bolla0')
+    this.score2 = this.add.image(Number(this.game.config.width) / 2 + 200, 150, 'bolla0')
 
   }
 
@@ -206,7 +206,7 @@ export class Game extends Scene {
     if (score1 > 10 || score2 > 10) {
       this.music.stop();
       this.music.destroy();
-      this.scene.start('GameOver', { winner: score1 > score2 ? 'canard1' : 'canard2' });
+      this.scene.start('GameOver', {winner: score1 > score2 ? 'canard1' : 'canard2'});
     }
 
     if (this.isPumping) {
