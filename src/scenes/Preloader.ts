@@ -30,7 +30,7 @@ export class Preloader extends Scene {
     this.load.setPath('assets');
 
     this.load.image('game-background', 'game-bg.png');
-    // this.load.image('pump', 'pump.png');
+    this.load.image('final-credits', 'final_credits.jpg');
     this.load.spritesheet(
       'pump',
       'pump_sheet.png',
