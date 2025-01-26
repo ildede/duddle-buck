@@ -42,6 +42,11 @@ export class Preloader extends Scene {
       'canard2.png',
       { frameWidth: 300, frameHeight: 240 }
     );
+    this.load.spritesheet(
+      'bubble',
+      'bubble_idle.png',
+      { frameWidth: 280, frameHeight: 264 }
+    );
 
     this.load.audio('playing-music', 'game-music.ogg');
     this.load.audio('sarbacane', 'sarbacane.mp3');

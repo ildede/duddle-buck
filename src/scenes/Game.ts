@@ -10,6 +10,7 @@ export class Game extends Scene {
   music: Phaser.Sound.NoAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.WebAudioSound;
   leftBath: Phaser.Types.Physics.Arcade.ImageWithStaticBody;
   rightBath: Phaser.Types.Physics.Arcade.ImageWithStaticBody;
+  bubbles: Phaser.Physics.Arcade.StaticGroup;
 
   constructor() {
     super('Game');
@@ -47,19 +48,19 @@ export class Game extends Scene {
     this.physics.add.collider(this.player1, this.pump, () => {
       this.pump.setFlipX(true);
     });
-
     this.physics.add.collider(this.player2, this.pump, () => {
       this.pump.setFlipX(false);
     });
 
     this.music = this.sound.add('playing-music');
-    // this.music.play({loop: true});
+    this.music.play({loop: true});
 
     this.input.once('pointerdown', () => {
       this.music.stop();
       this.music.destroy();
       this.scene.start('GameOver');
     });
+
   }
 
   update() {
