@@ -26,14 +26,14 @@ export class Game extends Scene {
     );
 
     this.pump = this.physics.add.staticImage(
-      Number(this.game.config.width) / 2 - 50,
-      Number(this.game.config.height) - 232,
+      Number(this.game.config.width) / 2,
+      Number(this.game.config.height) - 300,
       'pump'
     );
 
     this.leftBath = this.physics.add.staticImage(
-      235,
-      Number(this.game.config.height) - 260,
+      245,
+      Number(this.game.config.height) - 243,
       'left-bath'
     );
     this.rightBath = this.physics.add.staticImage(
@@ -53,7 +53,7 @@ export class Game extends Scene {
     });
 
     this.music = this.sound.add('playing-music');
-    this.music.play({loop: true});
+    // this.music.play({loop: true});
 
     this.input.once('pointerdown', () => {
       this.music.stop();
