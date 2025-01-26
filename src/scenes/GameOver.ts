@@ -4,6 +4,7 @@ export class GameOver extends Scene {
   background: Phaser.GameObjects.Image;
   gameover_text: Phaser.GameObjects.Text;
   cloud: Phaser.GameObjects.Image;
+  music: Phaser.Sound.NoAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.WebAudioSound;
 
   constructor() {
     super('GameOver');
@@ -38,7 +39,12 @@ export class GameOver extends Scene {
     }
     winnerSprite.play(`${winner}happy`);
 
+    this.music = this.sound.add('victory');
+    this.music.play({loop: true});
+
     this.input.once('pointerdown', () => {
+      this.music.stop();
+      this.music.destroy();
       this.scene.start('MainMenu');
     });
   }

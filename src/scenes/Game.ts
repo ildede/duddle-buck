@@ -191,7 +191,7 @@ export class Game extends Scene {
     if (score1 > 10 || score2 > 10) {
       this.music.stop();
       this.music.destroy();
-      this.scene.start('GameOver', { winnerIsLeft: score1 > score2 });
+      this.scene.start('GameOver', { winner: score1 > score2 ? 'canard1' : 'canard2' });
     }
 
     if (this.isPumping) {
