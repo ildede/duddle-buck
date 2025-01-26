@@ -44,8 +44,8 @@ export class Preloader extends Scene {
     );
     this.load.spritesheet(
       'bubble',
-      'bubble_idle.png',
-      { frameWidth: 280, frameHeight: 264 }
+      'bubble_pop.png',
+      { frameWidth: 356, frameHeight: 358 }
     );
 
     this.load.audio('playing-music', 'game-music.ogg');

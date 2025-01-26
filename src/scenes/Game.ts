@@ -11,7 +11,8 @@ export class Game extends Scene {
   music: Phaser.Sound.NoAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.WebAudioSound;
   leftBath: Phaser.Types.Physics.Arcade.ImageWithStaticBody;
   rightBath: Phaser.Types.Physics.Arcade.ImageWithStaticBody;
-  bubbles: Phaser.Physics.Arcade.StaticGroup;
+  bubbles: Phaser.GameObjects.Group;
+  darts: Phaser.GameObjects.Group;
 
   constructor() {
     super('Game');
@@ -43,23 +44,29 @@ export class Game extends Scene {
       'right-bath'
     );
 
-    this.player1 = new Player(this, 1);
-    this.player2 = new Player(this, 2);
+    this.bubbles = this.add.group();
+    this.darts = this.add.group();
 
-
+    this.player1 = new Player(this, 1, this.darts);
+    this.player2 = new Player(this, 2, this.darts);
 
     this.physics.add.collider(this.player1, this.pump, () => {
-      this.pump.setFlipX(true);
+      this.pump.setFlipX(false);
     });
     this.physics.add.collider(this.player2, this.pump, () => {
-      this.pump.setFlipX(false);
+      this.pump.setFlipX(true);
     });
 
     this.physics.add.collider(this.player1, this.leftBath, () => {
-      new Bubble(this, 300, Number(this.game.config.height) - 350);
+      this.bubbles.add(new Bubble(this, 200 + Math.random()*250, Number(this.game.config.height) - 320));
     });
     this.physics.add.collider(this.player2, this.rightBath, () => {
-      new Bubble(this, Number(this.game.config.width) - 300, Number(this.game.config.height) - 350);
+      this.bubbles.add(new Bubble(this, Number(this.game.config.width) - 200 - Math.random()*250, Number(this.game.config.height) - 330));
+    });
+
+    this.physics.add.collider(this.bubbles, this.darts, (bubble, _dart) => {
+      (bubble as Bubble).anims.play('pop');
+      (bubble as Bubble).on('animationcomplete', () => bubble.destroy());
     });
 
     this.music = this.sound.add('playing-music');
