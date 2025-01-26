@@ -18,7 +18,7 @@ export class Boot extends Scene {
       {frameWidth: 150, frameHeight: 92}
     );
     this.load.spritesheet(
-      'cabane',
+      'baignoires',
       'assets/baignoires.png',
       {frameWidth: 300, frameHeight: 205}
     );

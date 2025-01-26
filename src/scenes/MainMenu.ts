@@ -50,7 +50,18 @@ export class MainMenu extends Scene {
       Number(this.game.config.height) - 270,
       'credits', 2
     ).on('pointerdown', () => this.scene.start('Credits'));
-    this.credits.setInteractive();;
+    this.credits.setInteractive();
+      
+      this.sdb = this.add.sprite(
+      Number(this.game.config.width)/2 - 284,
+      Number(this.game.config.height) - 470,
+      'baignoires', 0
+    );
+      this.cabane = this.add.sprite(
+      Number(this.game.config.width)/2 + 284,
+      Number(this.game.config.height) - 470,
+      'baignoires', 1
+    );
     /*
 
 	  this.sdb = this.add.image(
@@ -64,6 +75,7 @@ export class MainMenu extends Scene {
       Number(this.game.config.height) -550 , 
       'cabane'
     );
+   */
 
 	  this.realduck = this.add.image(
       Number(this.game.config.width) / 8 + 700, 
@@ -76,7 +88,6 @@ export class MainMenu extends Scene {
       Number(this.game.config.height) -750 , 
       'plasticduck'
     );
-   */
 
 /*
     this.input.once('pointerdown', () => {
