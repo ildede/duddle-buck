@@ -4,26 +4,28 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
   private textureName: string;
   private dart: Phaser.GameObjects.Image;
   private dartEffect: Phaser.Sound.NoAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.WebAudioSound;
+  private walkEffect: Phaser.Sound.NoAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.WebAudioSound;
 
-  constructor(scene: Phaser.Scene, texture: string, side: string) {
+  constructor(scene: Phaser.Scene, type: number) {
     super(
       scene,
-      Number(scene.game.config.width) / 2 + (side === 'left' ? -300 : +300),
+      Number(scene.game.config.width) / 2 + (type === 1 ? -300 : +300),
       Number(scene.game.config.height) - 200,
-      texture
+      `canard${type}`
     );
-    this.textureName = texture;
+    this.textureName = `canard${type}`;
     this.scene = scene;
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
 
-    this.dart = this.scene.add.image(this.x, this.y, 'dart');
+    this.dart = this.scene.add.image(this.x, this.y, `dart${type}`);
     this.dartEffect = scene.sound.add('sarbacane');
+    this.walkEffect = scene.sound.add('walking-duck');
 
-    if (!scene.anims.exists(`${texture}walk`)) {
+    if (!scene.anims.exists(`canard${type}walk`)) {
       scene.anims.create({
-        key: `${texture}walk`,
-        frames: scene.anims.generateFrameNumbers(texture, {start: 0, end: 2}),
+        key: `canard${type}walk`,
+        frames: scene.anims.generateFrameNumbers(`canard${type}`, {start: 0, end: 2}),
         frameRate: 10,
         repeat: -1
       });
@@ -32,9 +34,16 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     this.setBounce(0.1);
     this.setCollideWorldBounds(true);
 
-    const playerKeys = side === 'left'
-      ? {left: KEY_CODES.A, right: KEY_CODES.S, shot: KEY_CODES.D}
-      : {left: KEY_CODES.LEFT, right: KEY_CODES.RIGHT, shot: KEY_CODES.DOWN}
+    let playerKeys = {left: KEY_CODES.LEFT, right: KEY_CODES.RIGHT, shot: KEY_CODES.UP};
+    switch (type) {
+      case 1:
+        playerKeys = {left: KEY_CODES.A, right: KEY_CODES.D, shot: KEY_CODES.W};
+        break;
+      case 2:
+        playerKeys = {left: KEY_CODES.LEFT, right: KEY_CODES.RIGHT, shot: KEY_CODES.UP};
+        break;
+      default:
+    }
 
     const leftKey = scene.input.keyboard?.addKey(playerKeys.left);
     const rightKey = scene.input.keyboard?.addKey(playerKeys.right);
@@ -65,17 +74,24 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     this.setVelocityX(-160);
     this.setFlipX(true);
     this.anims.play(`${this.textureName}walk`, true);
+    if (!this.walkEffect.isPlaying) {
+      this.walkEffect.play();
+    }
   }
 
   walkRight() {
     this.setVelocityX(+160);
     this.setFlipX(false);
     this.anims.play(`${this.textureName}walk`, true);
+    if (!this.walkEffect.isPlaying) {
+      this.walkEffect.play();
+    }
   }
 
   walkStop() {
     this.setVelocityX(0);
     this.anims.stop();
+    this.walkEffect.stop();
   }
 
   update() {
@@ -84,7 +100,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   shotDart() {
-    const shootingDart = this.scene.physics.add.image(this.dart.x, this.dart.y, 'dart');
+    const shootingDart = this.scene.physics.add.image(this.dart.x, this.dart.y, this.dart.texture);
     shootingDart.setAngle(this.dart.angle);
     let vector2 = this.scene.physics.velocityFromAngle(this.dart.angle, 1000);
     shootingDart.setVelocity(-vector2.x, -vector2.y);

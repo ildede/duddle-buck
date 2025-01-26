@@ -27,7 +27,8 @@ export class Preloader extends Scene {
 
     this.load.image('game-background', 'game-bg.png');
     this.load.image('pump', 'pump.png');
-    this.load.image('dart', 'dart.png');
+    this.load.image('dart1', 'dart1.png');
+    this.load.image('dart2', 'dart2.png');
 
     this.load.spritesheet(
       'canard1',
@@ -42,6 +43,7 @@ export class Preloader extends Scene {
 
     this.load.audio('playing-music', 'game-music.ogg');
     this.load.audio('sarbacane', 'sarbacane.mp3');
+    this.load.audio('walking-duck', 'marche_canards.mp3');
   }
 
   create() {

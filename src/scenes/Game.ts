@@ -28,8 +28,8 @@ export class Game extends Scene {
       'pump'
     );
 
-    this.player1 = new Player(this, 'canard1', 'left');
-    this.player2 = new Player(this, 'canard2', 'right');
+    this.player1 = new Player(this, 1);
+    this.player2 = new Player(this, 2);
 
     this.physics.add.collider(this.player1, this.pump, () => {
       this.pump.setFlipX(true);
@@ -40,7 +40,7 @@ export class Game extends Scene {
     });
 
     this.music = this.sound.add('playing-music');
-    this.music.play({loop: true});
+    // this.music.play({loop: true});
 
     this.input.once('pointerdown', () => {
       this.music.stop();
