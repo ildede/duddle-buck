@@ -103,14 +103,6 @@ export class Game extends Scene {
     this.physics.add.collider(this.bubbles1, this.darts2, (bubble, _dart) => popBubble(bubble as Bubble));
     this.physics.add.collider(this.bubbles2, this.darts1, (bubble, _dart) => popBubble(bubble as Bubble));
 
-    // shootingDart.setCollideWorldBounds(undefined, undefined, undefined, true);
-    // shootingDart.body.world.on('worldbounds', () => {
-    //   console.log('dart on world bounds');
-    //   shootingDart.setActive(false);
-    //   shootingDart.setVisible(false);
-    //   shootingDart.destroy();
-    // });
-
     this.music = this.sound.add('playing-music');
     this.music.play({loop: true, volume: 0.3});
 
@@ -125,8 +117,5 @@ export class Game extends Scene {
   update() {
     this.player1.update();
     this.player2.update();
-    // this.darts1.getChildren().forEach((d) => {
-    //   console.log(d?.body);
-    // })
   }
 }
