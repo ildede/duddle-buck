@@ -43,6 +43,15 @@ export class Game extends Scene {
       'game-background'
     );
 
+    let couacs = [
+      this.sound.add('couac1'),
+      this.sound.add('couac2'),
+      this.sound.add('couac3'),
+      this.sound.add('couac4'),
+      this.sound.add('couac5'),
+      this.sound.add('couac6'),
+    ];
+
     let floor = this.physics.add.staticImage(Number(this.game.config.width) / 2, Number(this.game.config.height) - 50, 'invisible');
 
     this.pump = this.physics.add.staticSprite(
@@ -120,8 +129,8 @@ export class Game extends Scene {
     this.darts1 = this.add.group();
     this.darts2 = this.add.group();
 
-    this.player1 = new Player(this, 1, this.darts1);
-    this.player2 = new Player(this, 2, this.darts2);
+    this.player1 = new Player(this, 1, this.darts1, couacs);
+    this.player2 = new Player(this, 2, this.darts2, couacs);
     this.physics.add.collider(floor, [this.player1, this.player2]);
 
     this.pumpFacingRight = false;
@@ -131,12 +140,14 @@ export class Game extends Scene {
       this.isPumping = true;
       this.anims.play('pumping', this.pump);
       this.pump.setFlipX(false);
+      couacs[Math.floor(Math.random() * couacs.length)].play();
     });
     this.physics.add.collider(this.player2, this.pump, () => {
       this.pumpFacingRight = true;
       this.isPumping = true;
       this.anims.play('pumping', this.pump);
       this.pump.setFlipX(true);
+      couacs[Math.floor(Math.random() * couacs.length)].play();
     });
 
     let player1timer = performance.now();
