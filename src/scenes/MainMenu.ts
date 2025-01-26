@@ -28,16 +28,14 @@ export class MainMenu extends Scene {
       Number(this.game.config.height) -100 , 
       'gamestart'
     ).on('pointerdown', () => this.scene.start('Game'));
-    ;
-
     this.gamestart.setInteractive();
 
 	  this.credits = this.add.image(
       Number(this.game.config.width) / 8 + 300, 
       Number(this.game.config.height) -100 , 
       'credits'
-    );
-    ;
+    ).on('pointerdown', () => this.scene.start('Credits'));
+    this.credits.setInteractive();
 
 	  this.sdb = this.add.image(
       Number(this.game.config.width) / 8 + 600, 

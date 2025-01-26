@@ -2,6 +2,10 @@
 
 This is a funny two player game where you can choose your duck to explose bubbles
 
+# Credits
+
+Made for the "Global GameJam 2025" with "Les portes logiques" Team @FLUX
+
 ![screenshot](screenshot.png)
 
 ## Requirements
