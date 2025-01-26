@@ -27,7 +27,7 @@ export class Game extends Scene {
       'game-background'
     );
 
-    let floor = this.physics.add.staticImage(Number(this.game.config.width)/2, Number(this.game.config.height) - 50, 'invisible');
+    let floor = this.physics.add.staticImage(Number(this.game.config.width) / 2, Number(this.game.config.height) - 50, 'invisible');
 
     this.pump = this.physics.add.staticImage(
       Number(this.game.config.width) / 2,
@@ -57,27 +57,34 @@ export class Game extends Scene {
     this.player2 = new Player(this, 2, this.darts);
     this.physics.add.collider(floor, [this.player1, this.player2]);
 
+    let pumpFacingRight = false;
     this.physics.add.collider(this.player1, this.pump, () => {
+      pumpFacingRight = false;
       this.pump.setFlipX(false);
     });
     this.physics.add.collider(this.player2, this.pump, () => {
+      pumpFacingRight = true;
       this.pump.setFlipX(true);
     });
 
     let player1timer = performance.now();
     let player2timer = performance.now();
     this.physics.add.collider(this.player1, this.leftBath, () => {
-      let now = performance.now();
-      if (now - player1timer > 1000) {
-        this.bubbles.add(new Bubble(this, 200 + Math.random() * 250, Number(this.game.config.height) - 320));
-        player1timer = now;
+      if (!pumpFacingRight) {
+        let now = performance.now();
+        if (now - player1timer > 1000) {
+          this.bubbles.add(new Bubble(this, 200 + Math.random() * 250, Number(this.game.config.height) - 320));
+          player1timer = now;
+        }
       }
     });
     this.physics.add.collider(this.player2, this.rightBath, () => {
-      let now = performance.now();
-      if (now - player2timer > 1000) {
-        this.bubbles.add(new Bubble(this, Number(this.game.config.width) - 200 - Math.random() * 250, Number(this.game.config.height) - 330));
-        player2timer = now;
+      if (pumpFacingRight) {
+        let now = performance.now();
+        if (now - player2timer > 1000) {
+          this.bubbles.add(new Bubble(this, Number(this.game.config.width) - 200 - Math.random() * 250, Number(this.game.config.height) - 330));
+          player2timer = now;
+        }
       }
     });
 
