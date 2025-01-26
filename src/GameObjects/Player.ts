@@ -6,7 +6,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
   private dartEffect: Phaser.Sound.NoAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.WebAudioSound;
   private walkEffect: Phaser.Sound.NoAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.WebAudioSound;
 
-  constructor(scene: Phaser.Scene, type: number, darts: Phaser.GameObjects.Group) {
+  constructor(scene: Phaser.Scene, type: number, darts: Phaser.GameObjects.Group, couacs: (Phaser.Sound.NoAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.WebAudioSound)[]) {
     super(
       scene,
       Number(scene.game.config.width) / 2 + (type === 1 ? -400 : +400),
@@ -55,7 +55,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     leftKey?.on('down', () => this.walkLeft());
     rightKey?.on('down', () => this.walkRight());
     jumpKey?.on('down', () => {
-      if (this.body?.touching.down) this.jump();
+      if (this.body?.touching.down) {
+        couacs[Math.floor(Math.random() * couacs.length)].play();
+        this.jump()
+      };
     });
 
     shotKey?.on('down', () => {

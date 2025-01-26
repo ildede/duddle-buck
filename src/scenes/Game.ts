@@ -29,6 +29,7 @@ export class Game extends Scene {
 
   private pumpFacingRight: boolean;
   private isPumping: boolean;
+  private patauge: Phaser.Sound.NoAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.WebAudioSound;
 
   constructor() {
     super('Game');
@@ -42,6 +43,16 @@ export class Game extends Scene {
       Number(this.game.config.height) / 2,
       'game-background'
     );
+
+    let couacs = [
+      this.sound.add('couac1'),
+      this.sound.add('couac2'),
+      this.sound.add('couac3'),
+      this.sound.add('couac4'),
+      this.sound.add('couac5'),
+      this.sound.add('couac6'),
+    ];
+    this.patauge = this.sound.add('patauge', { volume: 0.8 });
 
     let floor = this.physics.add.staticImage(Number(this.game.config.width) / 2, Number(this.game.config.height) - 50, 'invisible');
 
@@ -120,8 +131,8 @@ export class Game extends Scene {
     this.darts1 = this.add.group();
     this.darts2 = this.add.group();
 
-    this.player1 = new Player(this, 1, this.darts1);
-    this.player2 = new Player(this, 2, this.darts2);
+    this.player1 = new Player(this, 1, this.darts1, couacs);
+    this.player2 = new Player(this, 2, this.darts2, couacs);
     this.physics.add.collider(floor, [this.player1, this.player2]);
 
     this.pumpFacingRight = false;
@@ -131,12 +142,14 @@ export class Game extends Scene {
       this.isPumping = true;
       this.anims.play('pumping', this.pump);
       this.pump.setFlipX(false);
+      couacs[Math.floor(Math.random() * couacs.length)].play();
     });
     this.physics.add.collider(this.player2, this.pump, () => {
       this.pumpFacingRight = true;
       this.isPumping = true;
       this.anims.play('pumping', this.pump);
       this.pump.setFlipX(true);
+      couacs[Math.floor(Math.random() * couacs.length)].play();
     });
 
     let player1timer = performance.now();
@@ -148,6 +161,7 @@ export class Game extends Scene {
           this.bubbles1.add(new Bubble(this, 200 + Math.random() * 250, Number(this.game.config.height) - 320));
           player1timer = now;
           this.leftBathWaterLevel = Math.max(this.leftBathWaterLevel - 0.3, 0);
+          this.patauge.play();
         }
       }
     });
@@ -158,6 +172,7 @@ export class Game extends Scene {
           this.bubbles2.add(new Bubble(this, Number(this.game.config.width) - 200 - Math.random() * 250, Number(this.game.config.height) - 330));
           player2timer = now;
           this.rightBathWaterLevel = Math.max(this.rightBathWaterLevel - 0.3, 0);
+          this.patauge.play();
         }
       }
     });
