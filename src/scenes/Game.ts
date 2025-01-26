@@ -1,5 +1,6 @@
 import { Scene } from 'phaser';
 import { Player } from '../GameObjects/Player';
+import { Bubble } from '../GameObjects/Bubble';
 
 export class Game extends Scene {
   camera: Phaser.Cameras.Scene2D.Camera;
@@ -45,11 +46,20 @@ export class Game extends Scene {
     this.player1 = new Player(this, 1);
     this.player2 = new Player(this, 2);
 
+
+
     this.physics.add.collider(this.player1, this.pump, () => {
       this.pump.setFlipX(true);
     });
     this.physics.add.collider(this.player2, this.pump, () => {
       this.pump.setFlipX(false);
+    });
+
+    this.physics.add.collider(this.player1, this.leftBath, () => {
+      new Bubble(this, 300, Number(this.game.config.height) - 350);
+    });
+    this.physics.add.collider(this.player2, this.rightBath, () => {
+      new Bubble(this, Number(this.game.config.width) - 300, Number(this.game.config.height) - 350);
     });
 
     this.music = this.sound.add('playing-music');
