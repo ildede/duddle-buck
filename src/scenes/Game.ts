@@ -15,6 +15,8 @@ export class Game extends Scene {
   bubbles2: Phaser.GameObjects.Group;
   darts1: Phaser.GameObjects.Group;
   darts2: Phaser.GameObjects.Group;
+  score1: Phaser.GameObjects.Image;
+  score2: Phaser.GameObjects.Image;
 
   constructor() {
     super('Game');
@@ -106,6 +108,9 @@ export class Game extends Scene {
     this.music = this.sound.add('playing-music');
     this.music.play({loop: true, volume: 0.3});
 
+    this.score1 = this.add.image(Number(this.game.config.width)/2 - 200, 150, 'bolla0')
+    this.score2 = this.add.image(Number(this.game.config.width)/2 + 200, 150, 'bolla0')
+
     this.input.once('pointerdown', () => {
       this.music.stop();
       this.music.destroy();
@@ -117,5 +122,9 @@ export class Game extends Scene {
   update() {
     this.player1.update();
     this.player2.update();
+    let score1 = Math.floor(this.bubbles1.children.size / 4);
+    this.score1.setTexture(`bolla${score1 <= 10 ? score1 : 10}`)
+    let score2 = Math.floor(this.bubbles2.children.size / 4);
+    this.score2.setTexture(`bolla${score2 <= 10 ? score2 : 10}`)
   }
 }
