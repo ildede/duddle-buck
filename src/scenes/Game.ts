@@ -29,6 +29,7 @@ export class Game extends Scene {
 
   private pumpFacingRight: boolean;
   private isPumping: boolean;
+  private patauge: Phaser.Sound.NoAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.WebAudioSound;
 
   constructor() {
     super('Game');
@@ -51,6 +52,7 @@ export class Game extends Scene {
       this.sound.add('couac5'),
       this.sound.add('couac6'),
     ];
+    this.patauge = this.sound.add('patauge', { volume: 0.8 });
 
     let floor = this.physics.add.staticImage(Number(this.game.config.width) / 2, Number(this.game.config.height) - 50, 'invisible');
 
@@ -159,6 +161,7 @@ export class Game extends Scene {
           this.bubbles1.add(new Bubble(this, 200 + Math.random() * 250, Number(this.game.config.height) - 320));
           player1timer = now;
           this.leftBathWaterLevel = Math.max(this.leftBathWaterLevel - 0.3, 0);
+          this.patauge.play();
         }
       }
     });
@@ -169,6 +172,7 @@ export class Game extends Scene {
           this.bubbles2.add(new Bubble(this, Number(this.game.config.width) - 200 - Math.random() * 250, Number(this.game.config.height) - 330));
           player2timer = now;
           this.rightBathWaterLevel = Math.max(this.rightBathWaterLevel - 0.3, 0);
+          this.patauge.play();
         }
       }
     });
