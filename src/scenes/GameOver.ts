@@ -1,35 +1,42 @@
 import { Scene } from 'phaser';
 
 export class GameOver extends Scene {
-  camera: Phaser.Cameras.Scene2D.Camera;
   background: Phaser.GameObjects.Image;
   gameover_text: Phaser.GameObjects.Text;
+  cloud: Phaser.GameObjects.Image;
 
   constructor() {
     super('GameOver');
   }
 
-  create(input: { winnerIsLeft: boolean }) {
-    this.camera = this.cameras.main;
-    this.camera.setBackgroundColor(0xff0000);
+  create({winner}: { winner: string }) {
 
     this.background = this.add.image(
       Number(this.game.config.width) / 2,
       Number(this.game.config.height) / 2,
-      'background'
+      'sky-clouds'
     );
-    this.background.setAlpha(0.5);
-
-    this.gameover_text = this.add.text(
+    this.cloud = this.add.image(
       Number(this.game.config.width) / 2,
-      Number(this.game.config.height) / 2,
-      input.winnerIsLeft ? 'Canard left wins' : 'Canard right wins',
-      {
-        fontFamily: 'Arial Black', fontSize: 64, color: '#ffffff',
-        stroke: '#000000', strokeThickness: 8,
-        align: 'center'
+      Number(this.game.config.height) / 2 + 200,
+      'bubbles-cloud'
+    );
+
+    let winnerSprite = this.add.sprite(
+      Number(this.game.config.width) / 2,
+      Number(this.game.config.height) / 2 - 200,
+      winner,
+      4
+    ).setScale(2, 2);
+    if (!this.anims.exists(`${winner}happy`)) {
+      this.anims.create({
+        key: `${winner}happy`,
+        frames: this.anims.generateFrameNumbers(winner, {start: 4, end: 5}),
+        frameRate: 5,
+        repeat: -1
       });
-    this.gameover_text.setOrigin(0.5);
+    }
+    winnerSprite.play(`${winner}happy`);
 
     this.input.once('pointerdown', () => {
       this.scene.start('MainMenu');
