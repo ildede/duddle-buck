@@ -3,6 +3,7 @@ import { Scene, GameObjects } from 'phaser';
 export class MainMenu extends Scene {
   background: GameObjects.Image;
 
+  gamestart: GameObjects.Image;
   credits: GameObjects.Image;
   sdb: GameObjects.Image;
   cabane: GameObjects.Image;
@@ -22,44 +23,50 @@ export class MainMenu extends Scene {
       'background'
     );
 
-    // Credits button
+	  this.gamestart = this.add.image(
+      Number(this.game.config.width) / 8 , 
+      Number(this.game.config.height) -100 , 
+      'gamestart'
+    ).on('pointerdown', () => this.scene.start('Game'));
+    ;
+
+    this.gamestart.setInteractive();
+
 	  this.credits = this.add.image(
-      Number(this.game.config.width) / 8 + 100, 
+      Number(this.game.config.width) / 8 + 300, 
       Number(this.game.config.height) -100 , 
-    'credits'
+      'credits'
     );
+    ;
 
-    // Credits button
 	  this.sdb = this.add.image(
-      Number(this.game.config.width) / 8 + 400, 
+      Number(this.game.config.width) / 8 + 600, 
       Number(this.game.config.height) -100 , 
-    'sdb'
+      'sdb'
     );
 
-    // Credits button
 	  this.cabane = this.add.image(
-      Number(this.game.config.width) / 8 + 700, 
+      Number(this.game.config.width) / 8 + 900, 
       Number(this.game.config.height) -100 , 
-    'cabane'
+      'cabane'
     );
 
-    // Credits button
 	  this.realduck = this.add.image(
-      Number(this.game.config.width) / 8 + 1000, 
+      Number(this.game.config.width) / 8 + 1200, 
       Number(this.game.config.height) -100 , 
-    'realduck'
+      'realduck'
     );
 
-    // Credits button
 	  this.plasticduck= this.add.image(
-      Number(this.game.config.width) / 8 + 1300, 
+      Number(this.game.config.width) / 8 + 1500, 
       Number(this.game.config.height) -100 , 
-    'plasticduck'
+      'plasticduck'
     );
 
-
+/*
     this.input.once('pointerdown', () => {
       this.scene.start('Game');
     });
+*/
   }
 }
