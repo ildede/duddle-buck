@@ -1,4 +1,4 @@
-# Duddle Buck : kick the Bubbles !
+# Duddle Buck: kick the Bubbles!
 
 This is a funny two player game where you can choose your duck to explose bubbles
 
@@ -10,6 +10,8 @@ Made for the "Global GameJam 2025" with "Les portes logiques" Team @FLUX
 * Art Design : Aurore & Emoc
 * Music & Sound Design : Chiara & Lina
 * Coding : Davide & Yann
+
+Official [GGJ page for the game](https://globalgamejam.org/games/2025/duddle-buck-3)
 
 ![splash](splash.png)
 ![screenshot](screenshot.png)
